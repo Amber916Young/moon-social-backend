@@ -12,16 +12,11 @@ import java.util.Objects;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
-
     private final Long id;
-
-
     private final String email;
-
     private final String firstName;
     private final String lastName;
-    private final String phone;
-
+    private final String userName;
     @JsonIgnore
     private final String password;
 
@@ -34,7 +29,7 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = Lists.newArrayList(new SimpleGrantedAuthority(member.getRole().name()));
         this.firstName = member.getFirstName();
         this.lastName = member.getLastName();
-        this.phone = member.getPhone();
+        this.userName = member.getUsername();
     }
 
     public Long getId() {
@@ -54,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return userName;
     }
 
     @Override
@@ -83,14 +78,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
     }
 
     @Override

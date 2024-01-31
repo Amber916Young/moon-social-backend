@@ -10,8 +10,6 @@ public class LoginSuccessDTO {
     private String jwt;
     private String firstName;
     private String lastName;
-    private String email;
-    private String phone;
     private Role role;
-
+    private String userName;
 }

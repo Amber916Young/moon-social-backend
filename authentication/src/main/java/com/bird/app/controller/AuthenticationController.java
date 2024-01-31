@@ -1,9 +1,14 @@
 package com.bird.app.controller;
+import com.bird.app.dto.ForgotPasswordDTO;
 import com.bird.app.dto.LoginDTO;
 import com.bird.app.dto.LoginSuccessDTO;
+import com.bird.app.dto.ResetPasswordDTO;
 import com.bird.app.service.AuthenticationService;
+import com.bird.app.service.MemberService;
 import com.bird.common.config.security.JwtUtils;
 import com.bird.common.config.security.UserDetailsImpl;
+import com.bird.common.entity.Member;
+import com.bird.enums.Role;
 import com.bird.exception.BadRequestException;
 import com.bird.exception.ErrorReasonCode;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +35,7 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final AuthenticationService authService;
-    private final CompanyService companyService;
+    private final MemberService memberService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginSuccessDTO> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
@@ -49,9 +54,9 @@ public class AuthenticationController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        Company company = companyService.getCompanyById(userDetails.getCompanyId());
 
-        return ResponseEntity.ok(new LoginSuccessDTO(jwt, userDetails.getFirstName(), userDetails.getLastName(), Role.valueOf(roles.get(0)), userDetails.getUsername(), userDetails.getContactNumber(), company.getCompanyName()));
+        return ResponseEntity.ok(new LoginSuccessDTO(jwt, userDetails.getFirstName(), userDetails.getLastName(),
+                Role.valueOf(roles.get(0)), userDetails.getUsername()));
     }
 
     @PostMapping("/forgotPassword")
