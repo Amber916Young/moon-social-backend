@@ -2,7 +2,7 @@ package com.bird.app.service;
 
 import com.bird.app.dto.MemberDTO;
 import com.bird.app.dto.RegisterDTO;
-import com.bird.app.repository.MemberRepository;
+import com.bird.common.repository.MemberRepository;
 import com.bird.common.config.SecurityUtil;
 import com.bird.common.entity.Member;
 import com.bird.enums.UserStatus;

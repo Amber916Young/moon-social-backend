@@ -1,4 +1,4 @@
-package com.bird.app.repository;
+package com.bird.common.repository;
 
 import com.bird.common.entity.Member;
 import com.bird.enums.Role;
@@ -18,5 +18,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByResetKey(String resetKey);
 
-    List<Member> findCompanyUserByCompanyIdAndRole(Long companyId, Role role);
 }

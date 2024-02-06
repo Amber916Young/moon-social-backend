@@ -1,7 +1,7 @@
 package com.bird.common.config.security;
 
 
-import com.bird.app.repository.UserRepository;
+import com.bird.common.repository.MemberRepository;
 import com.bird.common.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.BooleanUtils;
@@ -14,17 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = userRepository.findByEmail(email)
+        Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("CompanyUser Not Found with email: " + email));
 
         if (BooleanUtils.isTrue(member.getFirstTimeLogin())) {
             member.setFirstTimeLogin(false);
-            userRepository.save(member);
+            memberRepository.save(member);
         }
 
         return new UserDetailsImpl(member);

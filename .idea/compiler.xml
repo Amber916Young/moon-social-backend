@@ -10,11 +10,7 @@
         <module name="authentication" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="bird" target="1.5" />
-      <module name="bird-common" target="1.5" />
-      <module name="com.common" target="1.5" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

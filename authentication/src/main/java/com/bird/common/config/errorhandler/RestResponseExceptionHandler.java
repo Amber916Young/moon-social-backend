@@ -1,8 +1,8 @@
 package com.bird.common.config.errorhandler;
 
-import com.orderit.common.exception.BadRequestException;
-import com.orderit.common.exception.ErrorReasonCode;
-import com.orderit.common.utils.SecurityUtil;
+import com.bird.common.config.SecurityUtil;
+import com.bird.exception.BadRequestException;
+import com.bird.exception.ErrorReasonCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.http.HttpHeaders;
