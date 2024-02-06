@@ -12,6 +12,7 @@
     <modules>
         <module>authentication</module>
         <module>common</module>
+        <module>fileservice</module>
     </modules>
 
 </project>

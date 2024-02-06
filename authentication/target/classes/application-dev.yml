@@ -10,7 +10,7 @@ spring:
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/moonsocialapp_auth?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/moonsocialapp?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: rootroot
     hikari:
@@ -32,6 +32,10 @@ spring:
 server:
   port: 8081
 
+application:
+  s3-info:
+    bucket-name: dev-moon-social
+  app-url: "https://xxx.com"
 
 jwt:
   secret: 9GItnI6fFFe9Xy8H83nknT7sUL2NmTFqKMYA9zcK9lXgtYvfSwplsUtKPPO9jRw2TrZryP/vZ7ghNfaJNdwuvzQcEMzytNa2CfFQN1mwQH1pUneyXTpvv5evZGmdqGIBc/VLKCf7lYgQQcf7KqCcbeiBTCWphaet2t6xIMJ6LDFJy8U1vnun0DYM6AQ/uhAPCmfK6TnfhBITV7imW/sKOFoDMBYV46yQkD+pTg==
