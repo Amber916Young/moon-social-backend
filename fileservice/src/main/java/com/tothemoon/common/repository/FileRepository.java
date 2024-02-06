@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface FileRepository extends JpaRepository<FileInfo, Long> {
 
+    void deleteByUrl(String url);
 }

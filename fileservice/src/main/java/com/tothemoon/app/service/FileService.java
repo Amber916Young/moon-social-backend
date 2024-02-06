@@ -3,6 +3,7 @@ package com.tothemoon.app.service;
 import com.bird.enums.FileType;
 import com.tothemoon.app.feign.client.AuthFeignClient;
 import com.tothemoon.common.config.S3FileManager;
+import com.tothemoon.common.entity.FileInfo;
 import com.tothemoon.common.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -31,7 +32,7 @@ public class FileService {
 
 
     @SneakyThrows
-    public String uploadProfileImage(MultipartFile imageFile) {
+    public FileInfo uploadProfileImage(MultipartFile imageFile) {
         if (isImage(imageFile)) {
             return null;
         }
@@ -39,7 +40,7 @@ public class FileService {
         String url = s3FileManager.uploadAvatarImage(fileName, imageFile);
         String original_logo = authFeignClient.getAndUpdateMemberProfileImage(url).getBody();
         deleteOriginalImage(original_logo, FileType.AVATAR);
-        return url;
+        return saveFile(imageFile, url, fileName);
     }
 
     @SneakyThrows
@@ -52,12 +53,13 @@ public class FileService {
     }
 
     @SneakyThrows
-    public String uploadPostImage(MultipartFile imageFile) {
+    public FileInfo uploadPostImage(MultipartFile imageFile) {
         if (isImage(imageFile)) {
             return null;
         }
         String fileName = generateUniqueFileName(imageFile.getOriginalFilename());
-        return s3FileManager.uploadPostImage(fileName, imageFile);
+        String url = s3FileManager.uploadPostImage(fileName, imageFile);
+        return saveFile(imageFile, url, fileName);
     }
 
     @SneakyThrows
@@ -69,6 +71,21 @@ public class FileService {
     public void deleteCommentImage(String imageUrl) {
         deleteOriginalImage(imageUrl, FileType.COMMENT);
     }
+
+    private FileInfo saveFile(MultipartFile multipartFile, String url, String fileName) {
+        FileInfo fileInfo = new FileInfo();
+        fileInfo.setUrl(url);
+        fileInfo.setFileName(fileName);
+        fileInfo.setContentType(multipartFile.getContentType());
+        fileInfo.setFileSize(multipartFile.getSize());
+        fileInfo.setOriginalName(multipartFile.getOriginalFilename());
+        return fileRepository.save(fileInfo);
+    }
+
+    private void deleteFile(String url) {
+        fileRepository.deleteByUrl(url);
+    }
+
 
     private void deleteOriginalImage(String original_logo, FileType type) {
         if (original_logo != null && !original_logo.isEmpty()) {
@@ -84,6 +101,7 @@ public class FileService {
                     s3FileManager.deleteCommentImages(keyName);
                     break;
             }
+            deleteFile(original_logo);
         }
     }
 

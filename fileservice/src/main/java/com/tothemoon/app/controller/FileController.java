@@ -1,5 +1,7 @@
 package com.tothemoon.app.controller;
 
+import com.tothemoon.app.dto.FileInfoDTO;
+import com.tothemoon.app.mapper.FileInfoMapper;
 import com.tothemoon.app.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,17 +18,16 @@ import java.io.IOException;
 @Slf4j
 public class FileController {
     private final FileService fileService;
+    private final FileInfoMapper fileInfoMapper;
 
     @PostMapping(value = "/profile-image")
-    public ResponseEntity<?> uploadProfileImage(@RequestParam("file") MultipartFile file) throws IOException {
-        String url = fileService.uploadProfileImage(file);
-        return new ResponseEntity<>(url, HttpStatus.OK);
+    public ResponseEntity<FileInfoDTO> uploadProfileImage(@RequestParam("file") MultipartFile file) throws IOException {
+        return new ResponseEntity<>(fileInfoMapper.toDTO(fileService.uploadProfileImage(file)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/post-image")
-    public ResponseEntity<?> uploadPostImage(@RequestParam("file") MultipartFile file) throws IOException {
-        String url = fileService.uploadPostImage(file);
-        return new ResponseEntity<>(url, HttpStatus.OK);
+    public ResponseEntity<FileInfoDTO> uploadPostImage(@RequestParam("file") MultipartFile file) throws IOException {
+        return new ResponseEntity<>(fileInfoMapper.toDTO(fileService.uploadPostImage(file)), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/post-image")

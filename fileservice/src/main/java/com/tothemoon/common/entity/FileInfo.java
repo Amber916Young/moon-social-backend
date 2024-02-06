@@ -21,11 +21,10 @@ public class FileInfo {
     private String fileName;
     @Column(length = 200)
     private String originalName;
-    @Column(length = 50)
-    private String fileType;
     @Column
     private long fileSize;
-    @Column
+    @Column(length = 50)
+
     private String contentType;
     @Column
     private String url;

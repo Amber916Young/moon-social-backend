@@ -13,7 +13,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="original_name" type="VARCHAR(200)"/>
-            <column name="file_type" type="VARCHAR(50)"/>
             <column name="file_size" type="BIGINT"/>
             <column name="content_type" type="VARCHAR(50)"/>
             <column name="url" type="VARCHAR(200)"/>
