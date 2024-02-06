@@ -1,16 +1,20 @@
 package com.bird.app.service;
 
+import com.bird.app.dto.MemberDTO;
 import com.bird.app.dto.RegisterDTO;
 import com.bird.app.repository.MemberRepository;
+import com.bird.common.config.SecurityUtil;
 import com.bird.common.entity.Member;
 import com.bird.enums.UserStatus;
 import com.bird.exception.BadRequestException;
 import com.bird.exception.ConflictRequestException;
 import com.bird.exception.ErrorReasonCode;
+import com.bird.exception.NotFoundRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.transaction.Transactional;
 import java.util.Objects;
 
@@ -53,4 +57,26 @@ public class MemberService {
         member.setPassword(encoder.encode(registerDTO.getPassword()));
         memberRepository.save(member);
     }
+
+    public Member updateMember(MemberDTO memberDTO) {
+        Member preMember = getMember();
+        preMember.setUsername(memberDTO.getUsername());
+        preMember.setPhone(memberDTO.getPhone());
+        preMember.setDateOfBirth(memberDTO.getDateOfBirth());
+        preMember.setBio(memberDTO.getBio());
+        preMember.setProfileImageUrl(memberDTO.getProfileImageUrl());
+        return memberRepository.save(preMember);
+    }
+
+    public Member getMemberById(Long userId) {
+        return memberRepository.findById(userId).orElseThrow(() -> new NotFoundRequestException(ErrorReasonCode.Not_Found_Entity));
+
+    }
+
+    public Member getMember() {
+        Long userId = SecurityUtil.getCurrentUserId();
+        return getMemberById(userId);
+    }
+
+
 }

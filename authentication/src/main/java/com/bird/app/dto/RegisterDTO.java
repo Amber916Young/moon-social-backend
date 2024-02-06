@@ -1,7 +1,5 @@
 package com.bird.app.dto;
 
-import com.bird.enums.Role;
-import com.bird.enums.UserStatus;
 import lombok.Data;
 
 import java.time.LocalDate;
