@@ -73,10 +73,20 @@ public class MemberService {
 
     }
 
+    public String getAndUpdateMemberProfileImage(String imageUrl) {
+        Member preMember = getMember();
+        preMember.setProfileImageUrl(imageUrl);
+        memberRepository.save(preMember);
+        return preMember.getProfileImageUrl();
+    }
+
+    public String getMemberProfileImage() {
+        return getMember().getProfileImageUrl();
+    }
+
     public Member getMember() {
         Long userId = SecurityUtil.getCurrentUserId();
         return getMemberById(userId);
     }
-
 
 }

@@ -42,9 +42,6 @@ jwt:
   expirationInMs: 2592000000 #30 days
 
 feign:
-  supplierSystem:
-    url: http://localhost:8080/
+  auth-service:
+    url: http://localhost:8081/
     token: aa5d758e764645a6bd677916eac773014b60125d9abf4838a348c50bad1810ac
-  caf:
-    url: http://localhost:8080/
-    token: azmQvoeHrSRF8jx1miWTB0HYftl5G1DVGJlmbeT8ib4aacGoOSXQFuDGp6Kmpu0w
