@@ -1,8 +1,5 @@
 package com.bird.app.controller;
-import com.bird.app.dto.ForgotPasswordDTO;
-import com.bird.app.dto.LoginDTO;
-import com.bird.app.dto.LoginSuccessDTO;
-import com.bird.app.dto.ResetPasswordDTO;
+import com.bird.app.dto.*;
 import com.bird.app.service.AuthenticationService;
 import com.bird.app.service.MemberService;
 import com.bird.common.config.security.JwtUtils;
@@ -57,6 +54,11 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(new LoginSuccessDTO(jwt, userDetails.getFirstName(), userDetails.getLastName(),
                 Role.valueOf(roles.get(0)), userDetails.getUsername()));
+    }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterDTO registerDTO) {
+        memberService.registerNewUser(registerDTO);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 
     @PostMapping("/forgotPassword")

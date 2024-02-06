@@ -1,9 +1,11 @@
 package com.bird.app.service;
 
+import com.bird.app.dto.RegisterDTO;
 import com.bird.app.repository.MemberRepository;
 import com.bird.common.entity.Member;
 import com.bird.enums.UserStatus;
 import com.bird.exception.BadRequestException;
+import com.bird.exception.ConflictRequestException;
 import com.bird.exception.ErrorReasonCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,4 +39,18 @@ public class MemberService {
     }
 
 
+    public void registerNewUser(RegisterDTO registerDTO) {
+        if (memberRepository.existsByEmail(registerDTO.getEmail())) {
+            throw new ConflictRequestException(ErrorReasonCode.Duplicated_UserEmail);
+        }
+        Member member = new Member();
+        member.setUsername(registerDTO.getUsername());
+        member.setEmail(registerDTO.getEmail());
+        member.setPhone(registerDTO.getPhone());
+        member.setFirstName(registerDTO.getFirstName());
+        member.setLastName(registerDTO.getLastName());
+        member.setDateOfBirth(registerDTO.getDateOfBirth());
+        member.setPassword(encoder.encode(registerDTO.getPassword()));
+        memberRepository.save(member);
+    }
 }
