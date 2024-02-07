@@ -12,20 +12,20 @@ public class AmazonClientProvider {
     public AmazonS3 getAmazonS3() {
         return AmazonS3ClientBuilder
                 .standard()
-                .withRegion(Regions.EU_WEST_1)
+                .withRegion(Regions.AP_NORTHEAST_2)
                 .build();
     }
 
     public SesV2Client getEmailTemplate() {
         return SesV2Client.builder()
-                .region(Region.EU_WEST_1)
+                .region(Region.AP_NORTHEAST_2)
                 .build();
     }
 
     public AmazonSimpleEmailService getAmazonSimpleEmailService() {
         return AmazonSimpleEmailServiceClientBuilder
                 .standard()
-                .withRegion(Regions.EU_WEST_1)
+                .withRegion(Regions.AP_NORTHEAST_2)
                 .build();
     }
 
