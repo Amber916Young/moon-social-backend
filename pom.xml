@@ -13,6 +13,7 @@
         <module>authentication</module>
         <module>common</module>
         <module>fileservice</module>
+        <module>discussion</module>
     </modules>
 
 </project>
