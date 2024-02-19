@@ -24,8 +24,8 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
-    @Value("${application.app-url}")
-    private String hostUrl;
+//    @Value("${application.app-url}")
+//    private String hostUrl;
 
 
 
@@ -48,10 +48,10 @@ public class AuthenticationService {
             throw new BadRequestException(ErrorReasonCode.Invalid_Reset_Key);
         }
 
-        User user = userRepository.findByResetKey(resetKey).orElseThrow(() -> new BadRequestException(ErrorReasonCode.Invalid_Reset_Key));
-
-        user.setPassword(encoder.encode(password));
-        userRepository.save(user);
+//        User user = userRepository.findByResetKey(resetKey).orElseThrow(() -> new BadRequestException(ErrorReasonCode.Invalid_Reset_Key));
+//
+//        user.setPassword(encoder.encode(password));
+//        userRepository.save(user);
     }
 
 

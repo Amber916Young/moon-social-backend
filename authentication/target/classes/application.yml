@@ -14,8 +14,8 @@ spring:
       hibernate:
         enable_lazy_load_no_trans: true
 
-  liquibase:
-    change-log: "classpath:db/master.xml"
+#  liquibase:
+#    change-log: "classpath:db/master.xml"
 
 feign:
   url: https://exapmle.com

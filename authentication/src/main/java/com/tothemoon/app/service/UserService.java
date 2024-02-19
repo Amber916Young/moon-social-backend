@@ -33,10 +33,10 @@ public class UserService {
             throw new BadRequestException(ErrorReasonCode.Invalid_Reset_Key);
         }
 
-        User member = userRepository.findByResetKey(resetKey).orElseThrow(() -> new BadRequestException(ErrorReasonCode.Invalid_Reset_Key));
-
-        member.setPassword(encoder.encode(password));
-        userRepository.save(member);
+//        User member = userRepository.findByResetKey(resetKey).orElseThrow(() -> new BadRequestException(ErrorReasonCode.Invalid_Reset_Key));
+//
+//        member.setPassword(encoder.encode(password));
+//        userRepository.save(member);
     }
 
 
