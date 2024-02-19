@@ -17,7 +17,7 @@ public class SecurityUtil {
         UserDetailsImpl springSecurityUser = getCurrentUserDetails();
 
         assert springSecurityUser != null;
-        return springSecurityUser.getFirstName() + " " + springSecurityUser.getLastName();
+        return springSecurityUser.getUsername();
     }
 
 

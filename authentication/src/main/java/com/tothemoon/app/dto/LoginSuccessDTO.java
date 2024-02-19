@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class LoginSuccessDTO {
     private String jwt;
-    private String firstName;
-    private String lastName;
+    private String nickName;
+    private String email;
     private Role role;
     private String userName;
 }

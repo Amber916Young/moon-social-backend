@@ -1,10 +1,9 @@
 package com.tothemoon.app.service;
 
-import com.tothemoon.common.entity.Member;
-import com.tothemoon.common.repository.MemberRepository;
-import com.bird.enums.UserStatus;
 import com.bird.exception.BadRequestException;
 import com.bird.exception.ErrorReasonCode;
+import com.tothemoon.common.entity.User;
+import com.tothemoon.common.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.RandomString;
@@ -22,7 +21,7 @@ import java.util.Objects;
 public class AuthenticationService {
     private final static String RESET_PASSWORD_LINK = "%s/auth/reset-password/%s";
     private final static String RESET_PASSWORD_SUBJECT = "Reset Your Order It Password";
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
     @Value("${application.app-url}")
@@ -33,10 +32,10 @@ public class AuthenticationService {
     public void forgotPassword(String email) {
         log.debug("Forgot password triggered for {}", email);
 
-        memberRepository.findByEmail(email).ifPresent(user -> {
+        userRepository.findByEmail(email).ifPresent(user -> {
             String randomKey = RandomString.make(10);
-            user.setResetKey(randomKey);
-            memberRepository.save(user);
+//            user.setResetKey(randomKey);
+//            memberRepository.save(user);
             // TODO send to email
 //            sendResetPasswordEmail(user.getFirstName() + " " + user.getLastName(), user.getEmail(), randomKey);
         });
@@ -49,12 +48,10 @@ public class AuthenticationService {
             throw new BadRequestException(ErrorReasonCode.Invalid_Reset_Key);
         }
 
-        Member member = memberRepository.findByResetKey(resetKey).orElseThrow(() -> new BadRequestException(ErrorReasonCode.Invalid_Reset_Key));
+        User user = userRepository.findByResetKey(resetKey).orElseThrow(() -> new BadRequestException(ErrorReasonCode.Invalid_Reset_Key));
 
-        member.setResetKey(null);
-        member.setPassword(encoder.encode(password));
-        member.setStatus(UserStatus.ACTIVE);
-        memberRepository.save(member);
+        user.setPassword(encoder.encode(password));
+        userRepository.save(user);
     }
 
 

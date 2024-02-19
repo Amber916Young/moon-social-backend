@@ -1,6 +1,6 @@
 package com.tothemoon.app.controller;
 
-import com.tothemoon.app.service.MemberService;
+import com.tothemoon.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class PublicController {
 
-    private final MemberService memberService;
+    private final UserService userService;
 
     @GetMapping("/files/profileImage")
     public ResponseEntity<String> getMemberProfileImage(){
-        return new ResponseEntity<>(memberService.getMemberProfileImage(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getMemberProfileImage(), HttpStatus.OK);
     }
     @PutMapping("/files/profileImage")
     public ResponseEntity<?> getAndUpdateMemberProfileImage(@RequestParam String imageUrl){
-        return new ResponseEntity< >( memberService.getAndUpdateMemberProfileImage(imageUrl), HttpStatus.OK);
+        return new ResponseEntity< >( userService.getAndUpdateMemberProfileImage(imageUrl), HttpStatus.OK);
     }
 
 }

@@ -1,8 +1,9 @@
 package com.tothemoon.common.config.security;
 
-import com.tothemoon.common.entity.Member;
+import com.bird.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
+import com.tothemoon.common.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,22 +15,20 @@ public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
     private final Long id;
     private final String email;
-    private final String firstName;
-    private final String lastName;
+    private final String nickName;
     private final String userName;
     @JsonIgnore
     private final String password;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Member member) {
-        this.id = member.getId();
-        this.email = member.getEmail();
-        this.password = member.getPassword();
-        this.authorities = Lists.newArrayList(new SimpleGrantedAuthority(member.getRole().name()));
-        this.firstName = member.getFirstName();
-        this.lastName = member.getLastName();
-        this.userName = member.getUsername();
+    public UserDetailsImpl(User user) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.authorities = Lists.newArrayList(new SimpleGrantedAuthority(Role.ROLE_OWNER.name()));
+        this.nickName = user.getNickname();
+        this.userName = user.getUsername();
     }
 
     public Long getId() {
@@ -72,12 +71,12 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEmail() {
+        return email;
     }
 
     @Override

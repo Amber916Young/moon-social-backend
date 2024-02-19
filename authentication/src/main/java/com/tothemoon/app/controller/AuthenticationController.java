@@ -1,7 +1,7 @@
 package com.tothemoon.app.controller;
 import com.tothemoon.app.dto.*;
 import com.tothemoon.app.service.AuthenticationService;
-import com.tothemoon.app.service.MemberService;
+import com.tothemoon.app.service.UserService;
 import com.tothemoon.common.config.security.JwtUtils;
 import com.tothemoon.common.config.security.UserDetailsImpl;
 import com.bird.enums.Role;
@@ -31,17 +31,17 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final AuthenticationService authService;
-    private final MemberService memberService;
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginSuccessDTO> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
         Authentication authentication = null;
         try {
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getLoginIdentifier(), loginRequest.getPassword()));
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getIdentification(), loginRequest.getPassword()));
 
-            log.info(loginRequest.getLoginIdentifier() + " successfully login");
+            log.info(loginRequest.getIdentification() + " successfully login");
         } catch (AuthenticationException e) {
-            log.info(loginRequest.getLoginIdentifier() + " failed to login");
+            log.info(loginRequest.getIdentification() + " failed to login");
             throw new BadRequestException(ErrorReasonCode.Invalid_Username_Password);
         }
 
@@ -51,13 +51,13 @@ public class AuthenticationController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
-        return ResponseEntity.ok(new LoginSuccessDTO(jwt, userDetails.getFirstName(), userDetails.getLastName(),
+        return ResponseEntity.ok(new LoginSuccessDTO(jwt, userDetails.getNickName(), userDetails.getEmail(),
                 Role.valueOf(roles.get(0)), userDetails.getUsername()));
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        memberService.registerNewUser(registerDTO);
+        userService.registerNewUser(registerDTO);
         return new ResponseEntity<>( HttpStatus.OK);
     }
 

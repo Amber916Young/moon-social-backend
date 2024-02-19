@@ -1,19 +1,19 @@
 package com.tothemoon.common.repository;
 
-import com.tothemoon.common.entity.Member;
+import com.tothemoon.common.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Member, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
     boolean existsByEmailAndIdIsNot(String email, long id);
 
-    Optional<Member> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
-    Optional<Member> findByResetKey(String resetKey);
+    Optional<User> findByResetKey(String resetKey);
 
 }
