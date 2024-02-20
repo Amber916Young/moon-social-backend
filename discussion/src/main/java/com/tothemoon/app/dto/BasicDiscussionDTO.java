@@ -1,12 +1,12 @@
 package com.tothemoon.app.dto;
 
-import com.tothemoon.common.entity.Post;
-import lombok.*;
+import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
-public class DiscussionDTO {
+public class BasicDiscussionDTO {
     private Long id;
     private String title;
     private Integer commentCount = 1;
@@ -14,11 +14,12 @@ public class DiscussionDTO {
     private Integer postNumberIndex = 0;
     private Date createdAt;
     private BasicUserInfoDTO user;
-    private Post firstPost;
-    private Date lastPostedAt;
     private BasicUserInfoDTO lastPostedUser;
-    private Post lastPost;
+    private BasicPostDTO firstPost;
+    private Date lastPostedAt;
+    private BasicPostDTO lastPost;
     private Integer lastPostNumber;
+    private List<BasicTagDTO> tags;
     private String slug;
     private Boolean isPrivate = false;
     private Boolean isApproved = true;

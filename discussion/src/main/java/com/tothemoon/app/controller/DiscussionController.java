@@ -25,7 +25,7 @@ public class DiscussionController {
     @Autowired
     private DiscussionService discussionService;
 
-    private final DiscussionMapper discussionMapper;
+    private  DiscussionMapper discussionMapper;
 
     @GetMapping
     public ResponseEntity<List<DiscussionDTO>> getDiscussionList(
