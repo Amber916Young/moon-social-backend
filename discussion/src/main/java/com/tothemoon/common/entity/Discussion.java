@@ -111,5 +111,4 @@ public class Discussion {
     @Column(name = "is_tag_sticky", nullable = false)
     private Boolean isTagSticky = false;
 
-    // Getters and setters omitted for brevity
 }
