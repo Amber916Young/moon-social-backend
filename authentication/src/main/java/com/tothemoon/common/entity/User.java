@@ -107,8 +107,8 @@ public class User {
     @Column(name = "new_achievements", nullable = false, columnDefinition = "TEXT")
     private String newAchievements;
 
-    @Column(name = "countryCode", nullable = false, columnDefinition = "TEXT")
-    private String countryCode;
+//    @Column(name = "countryCode", nullable = false, columnDefinition = "TEXT")
+//    private String countryCode;
 
     @Column(name = "carving_contest_entry_count", nullable = false)
     private Integer carvingContestEntryCount = 0;

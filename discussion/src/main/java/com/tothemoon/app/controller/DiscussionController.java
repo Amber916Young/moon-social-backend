@@ -1,12 +1,15 @@
 package com.tothemoon.app.controller;
 
+import com.tothemoon.app.dto.BasicDiscussionDTO;
 import com.tothemoon.app.dto.DiscussionDTO;
 import com.tothemoon.app.mapper.DiscussionMapper;
 import com.tothemoon.app.service.DiscussionService;
 import com.tothemoon.common.entity.Discussion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +31,15 @@ public class DiscussionController {
     private  DiscussionMapper discussionMapper;
 
     @GetMapping
-    public ResponseEntity<List<DiscussionDTO>> getDiscussionList(
+    public ResponseEntity<Page<BasicDiscussionDTO>> getDiscussionList(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(discussionMapper.toDTOList(discussionService.getDiscussionList(pageable)));
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "lastPostedAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortOrder) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortOrder), sortBy));
+        Page<BasicDiscussionDTO> discussions =   discussionService.getDiscussionList(pageable);
+        return ResponseEntity.ok(discussions);
     }
 
     @GetMapping("/{discussionId}")

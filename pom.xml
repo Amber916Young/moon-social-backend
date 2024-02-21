@@ -10,11 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>authentication</module>
         <module>common</module>
+        <module>authentication</module>
         <module>fileservice</module>
         <module>discussion</module>
-        <module>demotest</module>
     </modules>
 
 </project>

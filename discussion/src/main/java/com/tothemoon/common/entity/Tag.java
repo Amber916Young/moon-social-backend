@@ -6,9 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @EqualsAndHashCode
 @NoArgsConstructor
 @Table(name = "tags")

@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Getter
 @Setter
@@ -34,11 +36,12 @@ public class Discussion {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER ,cascade = ALL)
     @JoinColumn(name = "user_id")
+    @EqualsAndHashCode.Exclude
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "first_post_id")
     private Post firstPost;
 
@@ -46,11 +49,11 @@ public class Discussion {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastPostedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "last_posted_user_id")
     private User lastPostedUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "last_post_id")
     private Post lastPost;
 
@@ -61,7 +64,7 @@ public class Discussion {
     @Temporal(TemporalType.TIMESTAMP)
     private Date hiddenAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hidden_user_id")
     private User hiddenUser;
 
@@ -69,22 +72,19 @@ public class Discussion {
     private String slug;
 
     @Column(name = "is_private", nullable = false)
-    private Boolean isPrivate = false;
+    private Boolean isPrivate ;
 
     @Column(name = "is_approved", nullable = false)
-    private Boolean isApproved = true;
+    private Boolean isApproved;
 
     @Column(name = "is_sticky", nullable = false)
-    private Boolean isSticky = false;
+    private Boolean isSticky ;
 
     @Column(name = "is_locked", nullable = false)
-    private Boolean isLocked = false;
+    private Boolean isLocked ;
 
     @Column(name = "is_popular", nullable = false)
-    private Boolean isPopular = false;
-
-    @Column(name = "replyTemplate", nullable = false, columnDefinition = "MEDIUMTEXT")
-    private String replyTemplate;
+    private Boolean isPopular;
 
     @Column(name = "trello_card_id", length = 16)
     private String trelloCardId;
@@ -99,16 +99,16 @@ public class Discussion {
     private Double hotness;
 
     @Column(name = "frontpage", nullable = false)
-    private Boolean frontpage = false;
+    private Boolean frontpage;
 
     @Column(name = "frontdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date frontdate;
 
     @Column(name = "is_stickiest", nullable = false)
-    private Boolean isStickiest = false;
+    private Boolean isStickiest ;
 
     @Column(name = "is_tag_sticky", nullable = false)
-    private Boolean isTagSticky = false;
+    private Boolean isTagSticky ;
 
 }

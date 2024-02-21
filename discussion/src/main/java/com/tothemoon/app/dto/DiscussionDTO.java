@@ -1,6 +1,5 @@
 package com.tothemoon.app.dto;
 
-import com.tothemoon.common.entity.Post;
 import lombok.*;
 
 import java.util.Date;
@@ -14,17 +13,17 @@ public class DiscussionDTO {
     private Integer postNumberIndex = 0;
     private Date createdAt;
     private BasicUserInfoDTO user;
-    private Post firstPost;
+    private BasicPostDTO firstPost;
     private Date lastPostedAt;
     private BasicUserInfoDTO lastPostedUser;
-    private Post lastPost;
+    private BasicPostDTO lastPost;
     private Integer lastPostNumber;
     private String slug;
-    private Boolean isPrivate = false;
-    private Boolean isApproved = true;
-    private Boolean isSticky = false;
-    private Boolean isLocked = false;
-    private Boolean isPopular = false;
-    private Integer viewCount = 0;
+    private Boolean isPrivate ;
+    private Boolean isApproved;
+    private Boolean isSticky;
+    private Boolean isLocked;
+    private Boolean isPopular;
+    private Integer viewCount;
     private Integer votes;
 }

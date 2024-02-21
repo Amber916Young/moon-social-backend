@@ -1,24 +1,32 @@
 package com.tothemoon.app.mapper;
 
-import com.tothemoon.app.dto.BasicDiscussionDTO;
+import com.tothemoon.app.dto.BasicPostDTO;
+import com.tothemoon.app.dto.BasicUserInfoDTO;
 import com.tothemoon.app.dto.DiscussionDTO;
-import com.tothemoon.app.dto.DiscussionDetailDTO;
 import com.tothemoon.common.entity.Discussion;
+import com.tothemoon.common.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {UserMapper.class, PostMapper.class})
 public interface DiscussionMapper {
+
+
+//    @Mappings({
+//            @Mapping(target = "user", source = "user", qualifiedByName = "toBasicUserInfoDTO"),
+//            @Mapping(target = "firstPost", source = "firstPost", qualifiedByName = "toBasicPostDTO"),
+//            @Mapping(target = "lastPostedUser", source = "lastPostedUser", qualifiedByName = "toBasicUserInfoDTO"),
+//            @Mapping(target = "lastPost", source = "lastPost", qualifiedByName = "toBasicPostDTO")
+//    })
     DiscussionDTO toDTO(Discussion discussion);
-    DiscussionDetailDTO toDetailDTO(Discussion discussion);
 
     Discussion toEntity(DiscussionDTO discussionDTO);
 
     List<DiscussionDTO> toDTOList(List<Discussion> discussions);
-    @Mapping(target = "commentCount", expression = "java(discussion.getComments().size())")
-    @Mapping(target = "participantCount", expression = "java(discussion.getParticipants().size())")
-    @Mapping(target = "postNumberIndex", source = "postNumberIndex")
-    List<BasicDiscussionDTO> toBasicDTOList(List<Discussion> discussions);
+
+
 }
