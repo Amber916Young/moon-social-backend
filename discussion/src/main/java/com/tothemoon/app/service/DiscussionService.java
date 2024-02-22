@@ -62,9 +62,20 @@ public class DiscussionService {
         return discussion;
     }
 
-    public Page<BasicDiscussionDTO>  getDiscussionList(Pageable pageable) {
-        Page<Discussion> discussionPage = discussionRepository.findAll(pageable);
+    public Page<BasicDiscussionDTO> getDiscussionList(Pageable pageable) {
+        Page<Discussion> discussionPage = discussionRepository.findByIsStickyFalseAndIsPrivateFalseAndIsApprovedTrue(pageable);
         List<Discussion> discussions = discussionPage.getContent();
+        List<BasicDiscussionDTO> basicDiscussionDTOS = cleanUpDiscussions(discussions);
+        return new PageImpl<>(basicDiscussionDTOS, pageable, discussionPage.getTotalElements());
+    }
+
+    public List<BasicDiscussionDTO> getTopDiscussionList() {
+        List<Discussion> discussions = discussionRepository.findByIsStickyTrueAndIsPrivateFalseAndIsApprovedTrueOrderByLastPostedAtDesc();
+        return cleanUpDiscussions(discussions);
+    }
+
+
+    private List<BasicDiscussionDTO> cleanUpDiscussions(List<Discussion> discussions) {
         List<DiscussionDTO> discussionDTOs = discussionMapper.toDTOList(discussions);
         List<BasicDiscussionDTO> basicDiscussionDTOS = new ArrayList<>();
         for (DiscussionDTO discussionDTO : discussionDTOs) {
@@ -80,6 +91,7 @@ public class DiscussionService {
             basicDiscussionDTO.setTags(basicTagDTOs);
             basicDiscussionDTOS.add(basicDiscussionDTO);
         }
-        return new PageImpl<>(basicDiscussionDTOS, pageable, discussionPage.getTotalElements());
+
+        return basicDiscussionDTOS;
     }
 }

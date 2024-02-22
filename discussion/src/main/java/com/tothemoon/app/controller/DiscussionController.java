@@ -41,7 +41,11 @@ public class DiscussionController {
         Page<BasicDiscussionDTO> discussions =  discussionService.getDiscussionList(pageable);
         return ResponseEntity.ok(discussions);
     }
-
+    @GetMapping("/sticky")
+    public ResponseEntity<List<BasicDiscussionDTO>> getTopDiscussionList() {
+        List<BasicDiscussionDTO> discussions =  discussionService.getTopDiscussionList();
+        return ResponseEntity.ok(discussions);
+    }
     @GetMapping("/{discussionId}")
     public ResponseEntity<Discussion> getDiscussionWithComments(
             @PathVariable Long discussionId,
