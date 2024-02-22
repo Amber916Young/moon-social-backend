@@ -38,7 +38,7 @@ public class DiscussionController {
             @RequestParam(defaultValue = "DESC") String sortOrder) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortOrder), sortBy));
-        Page<BasicDiscussionDTO> discussions =   discussionService.getDiscussionList(pageable);
+        Page<BasicDiscussionDTO> discussions =  discussionService.getDiscussionList(pageable);
         return ResponseEntity.ok(discussions);
     }
 

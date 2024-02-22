@@ -64,12 +64,9 @@ public class DiscussionService {
 
     public Page<BasicDiscussionDTO>  getDiscussionList(Pageable pageable) {
         Page<Discussion> discussionPage = discussionRepository.findAll(pageable);
-
         List<Discussion> discussions = discussionPage.getContent();
         List<DiscussionDTO> discussionDTOs = discussionMapper.toDTOList(discussions);
         List<BasicDiscussionDTO> basicDiscussionDTOS = new ArrayList<>();
-        // loop the  discussionDTOS get id , then find the tags from the  discussion_tag table
-        // and based on the discussion_tag result to fetch the tags from tag table
         for (DiscussionDTO discussionDTO : discussionDTOs) {
             Long discussionId = discussionDTO.getId();
             List<DiscussionTag> discussionTags = discussionTagRepository.findByDiscussionId(discussionId);

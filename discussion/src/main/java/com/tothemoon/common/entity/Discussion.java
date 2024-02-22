@@ -71,23 +71,21 @@ public class Discussion {
     @Column(name = "slug", nullable = false, length = 255)
     private String slug;
 
-    @Column(name = "is_private", nullable = false)
+    @Column(name = "is_private", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isPrivate ;
 
-    @Column(name = "is_approved", nullable = false)
+    @Column(name = "is_approved", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isApproved;
 
-    @Column(name = "is_sticky", nullable = false)
+    @Column(name = "is_sticky", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isSticky ;
 
-    @Column(name = "is_locked", nullable = false)
+    @Column(name = "is_locked", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isLocked ;
 
-    @Column(name = "is_popular", nullable = false)
+    @Column(name = "is_popular", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isPopular;
 
-    @Column(name = "trello_card_id", length = 16)
-    private String trelloCardId;
 
     @Column(name = "view_count", nullable = false)
     private Integer viewCount = 0;
@@ -98,17 +96,17 @@ public class Discussion {
     @Column(name = "hotness", nullable = false)
     private Double hotness;
 
-    @Column(name = "frontpage", nullable = false)
+    @Column(name = "frontpage", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean frontpage;
 
     @Column(name = "frontdate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date frontdate;
 
-    @Column(name = "is_stickiest", nullable = false)
+    @Column(name = "is_stickiest", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isStickiest ;
 
-    @Column(name = "is_tag_sticky", nullable = false)
+    @Column(name = "is_tag_sticky", nullable = false,columnDefinition = "TINYINT(1)")
     private Boolean isTagSticky ;
 
 }
