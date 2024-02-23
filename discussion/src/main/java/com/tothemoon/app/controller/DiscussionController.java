@@ -50,7 +50,9 @@ public class DiscussionController {
     public ResponseEntity<Discussion> getDiscussionWithComments(
             @PathVariable Long discussionId,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "lastPostedAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortOrder) {
 
         Pageable pageable = PageRequest.of(page, size);
         Discussion discussion = discussionService.getDiscussionWithComments(discussionId, pageable);
